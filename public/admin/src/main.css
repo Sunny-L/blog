@@ -1,0 +1,140 @@
+/* ui */
+*{
+    line-height: 1.1;
+    font-family: "tahoma","Helvetica","Microsoft Yahei",sans-serif;
+    box-sizing: border-box;
+    color:#555;
+}
+html,body{height:100%;}
+ul{list-style: none}
+ul li{margin-bottom: 8px;}
+a{cursor: pointer}
+p{margin-bottom:10px;margin-top:10px;}
+input{padding:0 15px;}
+button{padding:0}
+.container{
+    width:960px;margin:0 auto;
+}
+.pull-left{
+    float:left;
+}
+.pull-right{
+    float:right;
+}
+.text-center{
+    text-align: center
+}
+.btn{
+    width:84px;height:40px;text-align: center;line-height: 36px;border-radius: 5px;cursor: pointer;font-size:14px;
+    border:1px solid #ccc;box-shadow: 1px 1px 5px 0 #ccc
+}
+.btn:hover{transition:all .3s ease-out;color:#555}
+.btn-default{background:#fff;}
+.btn-default:hover{background: #d4d4d4;}
+.progress .out{height:2px;background:#999}
+.progress .out .inner{height:2px;background:#555}
+.clearfix{clear:both;float:none;}
+a{text-decoration:none;}
+.flex{display: flex}
+.flex-center{justify-content: space-between}
+
+
+header {
+    height: 68px;
+    display: flex;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 24px 30px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 1px 0 2px 0 #ccc;
+}
+
+a:hover {
+    color: #4caf50
+}
+
+.text-success {
+    color: #4caf50
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.card {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    margin: 20px;
+    min-width: 240px;
+}
+
+.card:before {
+    position: absolute;
+    width: 4px;
+    left: -1px;
+    top: -1px;
+    bottom: -1px;
+    content: ' '
+}
+
+.card-blue:before {
+    background: #2196f3
+}
+
+.card-orange:before {
+    background: #ff9800
+}
+
+.card-red:before {
+    background: #f44336
+}
+
+.card-green:before {
+    background: #4caf50
+}
+
+.color-blue {
+    color: #2196f3
+}
+
+.color-orange {
+    color: #ff9800
+}
+
+.color-red {
+    color: #f44336
+}
+
+.color-green {
+    color: #4caf50
+}
+
+section .section-header {
+    margin-bottom: 30px;
+}
+
+strong {
+    font-weight: 500;
+    font-size: 180%
+}
+
+section {
+    padding: 40px;
+}
+
+table {
+    width: 100%
+}
+
+table tbody tr:nth-child(1) td {
+    padding-top: 10px;
+}
+
+table td {
+    text-align: center;
+    padding: 5px;
+}

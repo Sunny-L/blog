@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/libs/normalize-css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="/src/css/ui.css" />
+  <link rel="stylesheet" type="text/css" href="/src/css/main.css" />
+  <%-defineContent('header') %>
+</head>
+<body>
+  <%-include('public/header.html')%>
+  <div class="container">
+  <%-defineContent('body') %>
+  </div>
+  <%-include('public/footer.html')%>
+  <%-defineContent('footer') %>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<%- contentFor('header')%>
+    <style>
+        .title {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .title i.iconfont {
+            line-height: 80px;
+            font-size: 32px;
+        }
+        
+        .time-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 100px;
+        }
+        
+        .time-wrap span {
+            margin-right: 15px;
+        }
+        
+        .time-wrap span:last-child {
+            margin-right: 0
+        }
+        
+        .time-wrap span.like {
+            cursor: pointer;
+        }
+        
+        .time-wrap span.liked,
+        .time-wrap span.liked i {
+            color: #d50000;
+        }
+        
+        .page-detail {
+            width: 970px;
+            margin: 0 auto;
+        }
+        
+        main .title-underline {
+            margin-top: 10px;
+        }
+        
+        main article {
+            line-height: 1.8
+        }
+        
+        main .bottom {
+            display: flex;
+            justify-content: space-between;
+            margin: 100px 0;
+        }
+        
+        main .bottom .tags {
+            display: flex;
+        }
+        
+        main .bottom .tags .tag.btn {
+            margin-right: 10px;
+        }
+        
+        main .bottom .star-wrap span {
+            margin-left: 10px;
+            line-height: 40px;
+        }
+    </style>
+
+    <%- contentFor('body')%>
+        <div class="page page-detail" data-detail_id="<%=post._id%>">
+            <div class="title">
+                <% if(prev){ %>
+                    <a href="/detail/<%=prev._id%>" class="prev"><i class="iconfont">&#xe602;</i></a>
+                <% }else { %>
+                    <a href="javascript:;" class="prev"><i class="iconfont">&#xe602;</i></a>
+                <% } %>
+                <h1>
+                    <%=post.title%>
+                </h1>
+                <% if(next){ %>
+                    <a href="/detail/<%=next._id%>" class="next"><i class="iconfont">&#xe603;</i></a>
+                 <% }else { %>
+                    <a href="javascript:;" class="next"><i class="iconfont">&#xe603;</i></a>
+                 <% } %>
+            </div>
+            <main>
+                <div class="title-underline center"></div>
+                <div class="time-wrap">
+                    <span class="time"><%=post.create_time_str%></span>
+                    <span class="">
+                        <i class="iconfont">&#xe840;</i><%=post.pv%>浏览
+                    </span>
+                    <span class="coments">
+                <i class="iconfont">&#xe607;</i>5评论
+            </span>
+                </div>
+                <article>
+                    <%=post.content%>
+                </article>
+                <div class="bottom">
+                    <div class="tags">
+                        <% post.tags && post.tags.forEach(item=>{%>
+                            <%if(item) {%>
+                            <div class="tag btn btn-default" data-id="<%=item.id%>">
+                                <%=item.title%>
+                            </div>
+                            <%}%>
+                        <%})%>
+                    </div>
+                    <div class="star-wrap">
+                        <span class="star">
+                    <i class="iconfont">&#xe607;</i>123
+                </span>
+                        <span class="comment">
+                    <i class="iconfont">&#xe606;</i>123
+                </span>
+                        <span class="share">
+                    <i class="iconfont">&#xe607;</i>分享
+                </span>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <%- contentFor('footer')%>
+            <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

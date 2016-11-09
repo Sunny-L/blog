@@ -1,0 +1,71 @@
+<%- contentFor('header')%>
+    <style>
+        main {
+            margin-bottom: 100px;
+            margin-left: -40px;
+            margin-right: -40px;
+        }
+        
+        main .item {
+            width: 50%;
+            float: left;
+            padding: 40px;
+            color: #555;
+            font-size: 16px;
+            transition: all .3s ease-out
+        }
+        
+        main .item:hover {
+            background: #f2f2f2;
+        }
+        
+        main .item:nth-child(even) {}
+        
+        main .item .introduce {
+            line-height: 24px;
+        }
+        
+        main .item .time-wrap {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+    </style>
+    <%- contentFor('body')%>
+        <div class="page page-index">
+            <div class="title-picker">
+                <select>
+                <option value="linux">linux</option>
+                <option value="angular.js">angular.js</option>
+                <option value="node.js">node.js</option>
+                <option value="react.js">react.js</option>
+                <option value="vue.js">vue.js</option>
+            </select>
+            </div>
+            <div class="title-underline"></div>
+            <main>
+                <% posts.forEach((item,i)=>{%>
+                    <a href="/detail/<%=item._id%>" target="_blank">
+                        <div class="item">
+                            <h3>
+                                <%=item.title%>
+                            </h3>
+                            <div class="title-underline"></div>
+                            <div class="introduce">
+                                <%=item.introduce%>
+                            </div>
+                            <div class="time-wrap">
+                                <div class="star">
+                                    <i class="iconfont">&#xe607;</i>
+                                    <span>24</span>喜欢
+                                </div>
+                                <div class="time">
+                                    <%=item.create_time_str%>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <%})%>
+                        <div class="clearfix"></div>
+            </main>
+        </div>

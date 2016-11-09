@@ -1,0 +1,34 @@
+<%- contentFor('header')%>
+  <style>
+    h3{text-align: center}
+    main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    main a.tag {
+      border-bottom: 1px solid #999;
+      color: #555;
+      display: inline-block;
+      margin: 10px;
+      transition: all .3s ease-out;
+    }
+    
+    main a.tag:hover {
+      color: #000;
+      border-bottom: 1px solid #000;
+    }
+  </style>
+  <%- contentFor('body')%>
+    <div class="page page-tags">
+      <h3>目前共计
+        <%=tags.length%>个标签</h3>
+      <main>
+        <% tags.forEach(item => { %>
+          <a class="tag" href="/list?tags=<%=item.value%>">
+            <%=item.title%>
+          </a>
+          <% }) %>
+      </main>
+    </div>
+    <%- contentFor('footer')%>

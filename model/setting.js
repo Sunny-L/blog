@@ -5,7 +5,8 @@ var settingSchema = new mongoose.Schema({
     description:Boolean,
     slogan:String,
     avator:String,
-    github:String
+    github:String,
+    baiduTongji:String
 },{collection:'setting'});
 
 module.exports = mongoose.model('setting',settingSchema);

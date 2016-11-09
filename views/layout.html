@@ -5,8 +5,9 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/libs/normalize-css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="/src/css/ui.css" />
+  <meta name="description" content="<%=settings.description%>">
+  <meta name="keywords" content="<%=settings.keywords%>">
+  <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/src/css/main.css" />
   <%-defineContent('header') %>
 </head>
@@ -17,6 +18,7 @@
   </div>
   <%-include('public/footer.html')%>
   <%-defineContent('footer') %>
+  <%-settings.baiduTongji%>
 </body>
 
 </html>

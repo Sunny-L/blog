@@ -67,8 +67,10 @@ router.get('/archives', (req, res, next) => {
             if (!rs[year]) rs[year] = []
             rs[year].push(item)
         })
+        console.log(rs);
         res.render('list', {
-            data: rs
+            data: rs,
+            counts: posts.length
         })
     })
 })

@@ -90,6 +90,13 @@
         #posts .collection-item {
             position: relative;
             margin: 30px 0;
+            opacity:0;
+            transition: all .8s ease-in-out .5s;
+            transform: translateY(-20px);
+        }
+        #posts .collection-item.normal {
+            opacity:1;
+            transform: translateY(0px);
         }
         
         #posts .collection-item .wrap {
@@ -128,6 +135,16 @@
         #posts .collection-item .wrap h4 {
             margin: 0;
         }
+        
+        .collection-title h2 {
+            transition: all .5s ease-in-out .3s;
+            transform: translateX(-20px);   
+            opacity: 0;
+        }
+        .collection-title h2.normal{
+            opacity: 1;
+            transform: translateX(0);   
+        }
     </style>
     <%- contentFor('body')%>
         <div class="page-list">
@@ -143,7 +160,7 @@
             <div class="title-underline"></div>
             <main>
                 <section id="posts">
-                    <span class="counter">到今天共计<em>11</em>篇日志，keep going~!</span>
+                    <span class="counter">到今天共计<em><%=counts%></em>篇日志，keep going~!</span>
                     <% for(let key in data) { %>
                         <div class="collection-title">
                             <h2 class="big-title">
@@ -154,12 +171,31 @@
                             <article class="collection-item">
                                 <div class="wrap">
                                     <div class="meta">
-                                        <time><%=((new Date(item.create_time).getMonth())+1) + '-' + (new Date(item.create_time).getDay())%></time>
+                                        <time>
+                                            <%=((new Date(item.create_time).getMonth())+1) + '-' + (new Date(item.create_time).getDay())%>
+                                        </time>
                                     </div>
-                                    <h4 class="title"><%=item.title%></h4>
+                                    <h4 class="title">
+                                        <%=item.title%>
+                                    </h4>
                                 </div>
                             </article>
-                        <% }) } %>
+                            <% }) %>
+                        <%}%>
                 </section>
             </main>
         </div>
+        <%- contentFor('footer')%>
+        <script>
+            window.onload = function(){
+                var collectionTitles = document.querySelectorAll('.collection-title h2')
+                for(var i=0;i<collectionTitles.length;i++) {
+                    collectionTitles[i].classList.add('normal')
+                }
+                var collectionItems = document.querySelectorAll('.collection-item')
+                for(var i=0;i<collectionItems.length;i++) {
+                    collectionItems[i].classList.add('normal')
+                }
+                
+            }
+        </script>

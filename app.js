@@ -5,9 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressLayouts = require('express-ejs-layouts');
+var cookieSession = require('cookie-session')
 var log4j = require('./logger')
 
 var app = express();
+
+app.use(cookieParser());
+app.disable('x-powered-by')
+app.enable('trust proxy', 1)
+app.use(cookieSession({
+    name: 'sessionId',
+    keys: ['sunnyson'],
+    maxAge: 24 * 60 * 60 * 1000 
+}))
+
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // view engine setup
 app.engine('.html', require('ejs').__express);
@@ -15,8 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.use(expressLayouts);
 
-app.disable('x-powered-by')
-app.enable('trust proxy')
+
     // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -24,9 +36,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')))
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use(require('./controllers/init').initSettings)
 app.use(require('./controllers'));

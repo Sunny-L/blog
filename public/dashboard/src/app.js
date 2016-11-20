@@ -8,6 +8,7 @@ import Posts from './components/Posts.vue'
 import PostsDetail from './components/PostsDetail.vue'
 import Tags from './components/Tags.vue'
 import System from './components/System.vue'
+import Login from './components/Login.vue'
 
 require('./main.css')
 
@@ -36,6 +37,9 @@ const router = new VueRouter({
     }, {
         path: '/system',
         component: System
+    }, {
+        path: '/login',
+        component: Login
     }],
     linkActiveClass: 'active'
 })

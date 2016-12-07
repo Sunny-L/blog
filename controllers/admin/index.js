@@ -9,60 +9,10 @@ var router = require('express').Router(),
     path = require('path')
 async = require('async')
 
-router.post('/login', (req, res, next) => {
-    var username = req.body.username,
-        pswd = req.body.password;
-
-    var errorInfo
-    if (!username || !validator.isEmail(username)) {
-        errorInfo = '邮箱错误'
-    } else if (!pswd || !validator.isLength(pswd, {
-            min: 6
-        })) {
-        errorInfo = '密码错误'
-    }
-    if (errorInfo) {
-        return res.json({
-            code: -1,
-            info: errorInfo
-        })
-
-    } else {
-        pswd = md5(pswd)
-        userModel.findOne({
-            email: username
-        }, (err, user) => {
-            if (err) res.json({
-                code: -1,
-                info: '邮箱或者密码错误!'
-            })
-            if (user.pswd === pswd) {
-                req.session.user = user
-                res.json({
-                    code: 0,
-                    info: 'success'
-                })
-            } else {
-                res.json({
-                    code: -1,
-                    info: '邮箱或者密码错误!'
-                })
-            }
-        })
-    }
-
-
-})
-
-router.get('/login', (req, res, next) => {
-    res.render('admin/login')
-})
-router.get('/logout', (req, res, next) => {
-    res.session = null
-    res.redirect('/admin/login')
-})
+router.use(require('../auth'))
 
 router.use((req, res, next) => {
+    console.log(req.session);
     if (req.session.user) next()
     else {
         if (req.xhr) {

@@ -93,8 +93,6 @@
     import _ from 'lodash'
     import timeago from 'timeago.js'
     import async from 'async'
-    // import {router} from '../app';
-    // const router = require('../app').router
 
     export default {
         data() {
@@ -162,6 +160,7 @@
             },
             save: function(is_publish) {
                 let url = is_publish ? '/admin/posts/publish' : '/admin/posts/save_to_draft'
+                let self = this
                 fetch(url, {
                     method: 'POST',
                     credentials: 'include',
@@ -174,7 +173,7 @@
                     .then(data => {
                         if (data.code === 0) {
                             alert('success')
-                            router.push({
+                            self.$router.push({
                                 path: '/posts'
                             })
                         } else {

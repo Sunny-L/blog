@@ -12,7 +12,7 @@ module.exports.initSettings = (req, res, next) => {
       })
       return
     }
-    res.app.locals.settings = settings[0]
+    res.app.locals.settings = settings[0]?settings[0]: {}
     next()
   })
 }

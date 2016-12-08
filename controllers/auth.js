@@ -53,7 +53,7 @@
     })
   })
   router.get('/admin/logout', (req, res, next) => {
-    res.session = null
+    req.session.user = null
     res.redirect('/admin/login')
   })
 

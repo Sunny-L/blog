@@ -1,8 +1,13 @@
 var mongoose = require('./db.js');
 var tagSchema = new mongoose.Schema({
-	title:String,
-	value:String,
-    is_del:Boolean,
-},{collection:'tag'});
+  title: String,
+  value: String,
+  is_del: {
+    type: Boolean,
+    default: false
+  },
+}, {
+  collection: 'tag'
+});
 
-module.exports = mongoose.model('tag',tagSchema);
+module.exports = mongoose.model('tag', tagSchema);

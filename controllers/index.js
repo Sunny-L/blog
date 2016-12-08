@@ -7,13 +7,16 @@ postModel = require('../model/blog'),
   timeago = require('timeago.js'),
   async = require('async'),
 
-router.use(require('./auth'))
+  router.use(require('./auth'))
 
 router.use((req, res, next) => {
-  if (!(req.url.indexOf('admin')>-1) && !res.app.locals.settings.description){
+  if (res.app.locals.settings.description) {
+    res.locals.path = req.path
+    console.log(req.path);
+    next()
+  } else {
     return res.redirect('/admin/login')
-  } 
-  next()
+  }
 })
 
 router.get('/', (req, res, next) => {

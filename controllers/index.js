@@ -6,13 +6,13 @@ postModel = require('../model/blog'),
   logger = require('../logger'),
   timeago = require('timeago.js'),
   async = require('async'),
+  validator = require('validator'),
 
   router.use(require('./auth'))
 
 router.use((req, res, next) => {
   if (res.app.locals.settings.description) {
     res.locals.path = req.path
-    console.log(req.path);
     next()
   } else {
     return res.redirect('/admin/login')
@@ -20,40 +20,67 @@ router.use((req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-  async.auto({
-    tags: (done) => {
-      tagModel.find({
-        is_del: false
-      }).exec((err, tags) => {
-        done(null, tags)
-      })
-    },
-    posts: (done) => {
-      postModel.find({
-        is_del: false
-      }).populate('tags').exec((err, posts) => {
-        done(null, posts)
-      })
+  let page = req.query.page ? req.query.page : '1',
+    size = 10,
+    skip = 0,
+    tag = req.query.tag ? req.query.tag : ''
+  if (validator.isInt(page)) {
+    page = parseInt(page)
+    if (page > 1) {
+      skip = (page - 1) * size
     }
-  }, (err, results) => {
-    if (err) {
-      logger.info(err)
-      res.json({
-        code: -100,
-        info: {
-          result: err
-        }
+  }
+  if (validator.isLowercase)
+    async.auto({
+      tags: (done) => {
+        tagModel.find({
+          is_del: false
+        }).exec((err, tags) => {
+          done(null, tags)
+        })
+      },
+      posts: (done) => {
+        postModel.find({
+          is_del: false
+        }, null, {
+          skip,
+          limit: size
+        }).populate({
+          path: 'tags'
+        }).exec((err, posts) => {
+          done(null, posts)
+        })
+      },
+      pageTotal: (done) => {
+        postModel.count({}, (err, count) => {
+          let total = count % size == 0 ? parseInt(count / size) : parseInt(count / size) + 1
+          done(null, total)
+        })
+      }
+    }, (err, results) => {
+      if (err) {
+        logger.info(err)
+        res.json({
+          code: -100,
+          info: {
+            result: err
+          }
+        })
+        return
+      }
+      results.posts.forEach((item) => {
+        console.log(item.tags);
+        item.create_time_str = timeago().format(new Date(item.create_time), 'zh_CN')
       })
-      return
-    }
-    results.posts.forEach((item) => {
-      item.create_time_str = timeago().format(new Date(item.create_time), 'zh_CN')
+      // console.log(results);
+
+      res.render('index', {
+        posts: results.posts,
+        tags: results.tags,
+        page,
+        pageTotal: results.pageTotal
+      })
     })
-    res.render('index', {
-      posts: results.posts,
-      tags: results.tags
-    })
-  })
 
 })
 

@@ -10,7 +10,6 @@ var router = require('express').Router(),
 async = require('async')
 
 router.use((req, res, next) => {
-  console.log(req.session);
   if (req.session.user) next()
   else {
     if (req.xhr) {

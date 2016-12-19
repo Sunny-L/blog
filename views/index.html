@@ -34,10 +34,10 @@
     <%- contentFor('body')%>
         <div class="page page-index">
             <div class="title-picker">
-                <select>
+                <select id="tags">
                     <option>all</option>
                     <% tags.forEach( item => { %>
-                    <option value="<%=item.value%>"><%=item.title%></option>
+                    <option value="<%=item.value%>" <%=tag===item.value ? 'selected' : ''%> ><%=item.title%></option>
                     <% }) %>
                 </select>
             </div>
@@ -68,13 +68,28 @@
                         <div class="clearfix"></div>
             </main>
             <div class="pager">
-                <% if(page!==1){ %>
-                <a href="/?page=<%=page-1%>" class="prev">上一页</a>
+                <% if(page!==1 && page > 0){ %>
+                    <%if(tag){%>
+                    <a href="/?tag=<%=tag%>&page=<%=page-1%>" class="prev">上一页</a>
+                    <% } else { %>
+                        <a href="/?page=<%=page-1%>" class="prev">上一页</a>
+                    <% } %>
                 <% } %>
                 <ul>
                 </ul>
-                <% if(page !==pageTotal){ %>
-                <a href="/?page=<%=page+1%>" class="next">下一页</a>
+                <% if(page !==pageTotal && page >0){ %>
+                    <%if(tag){%>
+                    <a href="/?tag=<%=tag%>&page=<%=page+1%>" class="prev">下一页</a>
+                    <% } else { %>
+                        <a href="/?page=<%=page+1%>" class="prev">下一页</a>
+                    <% } %>
                 <% } %>
             </div>
         </div>
+
+<%- contentFor('footer')%>
+<script>
+    document.querySelector('#tags').addEventListener('change', function(e) {
+        location.href = '/?tag=' + e.target.value
+    })
+</script>

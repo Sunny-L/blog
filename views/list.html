@@ -148,16 +148,6 @@
     </style>
     <%- contentFor('body')%>
         <div class="page-list">
-            <div class="title-picker">
-                <select>
-                <option value="linux">linux</option>
-                <option value="angular.js">angular.js</option>
-                <option value="node.js">node.js</option>
-                <option value="react.js">react.js</option>
-                <option value="vue.js">vue.js</option>
-            </select>
-            </div>
-            <div class="title-underline"></div>
             <main>
                 <section id="posts">
                     <span class="counter">到今天共计<em><%=counts%></em>篇日志，keep going~!</span>
@@ -194,6 +184,7 @@
                 }
                 var collectionItems = document.querySelectorAll('.collection-item')
                 for(var i=0;i<collectionItems.length;i++) {
+                    collectionItems[i].style.transitionDelay = i/10 + 's'
                     collectionItems[i].classList.add('normal')
                 }
                 

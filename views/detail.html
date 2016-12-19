@@ -9,7 +9,10 @@
             line-height: 80px;
             font-size: 32px;
         }
-        
+        .title .prev.first i.iconfont, .title .next.last i.iconfont {
+            cursor: no-drop;
+            color: #ccc;
+        }
         .time-wrap {
             display: flex;
             justify-content: center;
@@ -72,7 +75,7 @@
                 <% if(prev){ %>
                     <a href="/detail/<%=prev._id%>" class="prev"><i class="iconfont">&#xe602;</i></a>
                 <% }else { %>
-                    <a href="javascript:;" class="prev"><i class="iconfont">&#xe602;</i></a>
+                    <a href="javascript:;" class="prev first"><i class="iconfont">&#xe602;</i></a>
                 <% } %>
                 <h1>
                     <%=post.title%>
@@ -80,7 +83,7 @@
                 <% if(next){ %>
                     <a href="/detail/<%=next._id%>" class="next"><i class="iconfont">&#xe603;</i></a>
                  <% }else { %>
-                    <a href="javascript:;" class="next"><i class="iconfont">&#xe603;</i></a>
+                    <a href="javascript:;" class="next last"><i class="iconfont">&#xe603;</i></a>
                  <% } %>
             </div>
             <main>
@@ -101,9 +104,11 @@
                     <div class="tags">
                         <% post.tags && post.tags.forEach(item=>{%>
                             <%if(item) {%>
+                            <a href="/?tag=<%=item.value%>">
                             <div class="tag btn btn-default" data-id="<%=item.id%>">
                                 <%=item.title%>
                             </div>
+                            </a>
                             <%}%>
                         <%})%>
                     </div>
@@ -122,4 +127,3 @@
             </main>
         </div>
         <%- contentFor('footer')%>
-            <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>

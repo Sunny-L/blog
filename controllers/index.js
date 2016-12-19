@@ -31,56 +31,74 @@ router.get('/', (req, res, next) => {
     }
   }
   if (validator.isLowercase)
-    async.auto({
-      tags: (done) => {
-        tagModel.find({
-          is_del: false
-        }).exec((err, tags) => {
-          done(null, tags)
-        })
-      },
-      posts: (done) => {
-        postModel.find({
-          is_del: false
-        }, null, {
-          skip,
-          limit: size
-        }).populate({
-          path: 'tags'
-        }).exec((err, posts) => {
-          done(null, posts)
-        })
-      },
-      pageTotal: (done) => {
-        postModel.count({}, (err, count) => {
-          let total = count % size == 0 ? parseInt(count / size) : parseInt(count / size) + 1
-          done(null, total)
-        })
-      }
-    }, (err, results) => {
-      if (err) {
-        logger.info(err)
-        res.json({
-          code: -100,
-          info: {
-            result: err
-          }
-        })
-        return
-      }
-      results.posts.forEach((item) => {
-        console.log(item.tags);
-        item.create_time_str = timeago().format(new Date(item.create_time), 'zh_CN')
-      })
-      // console.log(results);
 
-      res.render('index', {
-        posts: results.posts,
-        tags: results.tags,
-        page,
-        pageTotal: results.pageTotal
+    async.auto({
+    tags: (done) => {
+      tagModel.find({
+        is_del: false
+      }).exec((err, tags) => {
+        done(null, tags)
       })
+    },
+    queryTag: (done) => {
+      if (!tag) {
+        done(null, [])
+        return 
+      }
+      tagModel.find({
+        is_del: false,
+        value: tag
+      }).exec((err, tags) => {
+        done(null, tags)
+      })
+    },
+    posts: ['queryTag','tags', ({
+      queryTag,tags
+    }, done) => {
+      if(!queryTag.length) queryTag = tags
+      postModel.find({
+        is_del: false,
+      }, null, {
+        skip,
+        limit: size
+      }).where('tags').in(queryTag).exec((err, posts) => {
+        done(null, posts)
+      })
+    }],
+    pageTotal: ['queryTag','tags', ({
+      queryTag,tags
+    }, done) => {
+      if(!queryTag.length) queryTag = tags
+      postModel.find({
+        is_del: false,
+      }).where('tags').in(queryTag).count({}).exec((err, count) => {
+        console.log(count);
+        let total = count % size == 0 ? parseInt(count / size) : parseInt(count / size) + 1
+        done(null, total)
+      })
+    }]
+  }, (err, results) => {
+    if (err) {
+      logger.info(err)
+      res.json({
+        code: -100,
+        info: {
+          result: err
+        }
+      })
+      return
+    }
+    results.posts.forEach((item) => {
+      item.create_time_str = timeago().format(new Date(item.create_time), 'zh_CN')
     })
+    res.render('index', {
+      posts: results.posts,
+      tags: results.tags,
+      tag,
+      page,
+      pageTotal: results.pageTotal
+    })
+  })
 
 })
 

@@ -45,6 +45,10 @@
                 <textarea v-model="settings.baiduTongji"></textarea>
             </div>
             <div class="form-control">
+                <label for="">域名</label>
+                <textarea v-model="settings.domain"></textarea>
+            </div>
+            <div class="form-control">
                 <img :src="settings.avator" id="avator_img"/>
                 <input type="file" id="input_avator" @change="uploadAvator" :key="settings.title">
             </div>

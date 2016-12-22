@@ -98,6 +98,24 @@ a {
   text-decoration: none;
 }
 
+.slide-down {
+  transition: all .3s ease-out;
+  animation-name: slide-down;
+  animation-duration: 1s;
+  opacity: 1;
+}
+
+@keyframes slide-down {
+  from{
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
 .flex {
   display: flex
 }
@@ -156,7 +174,9 @@ footer .container .right {
   align-items: center;
 }
 
-footer .container .right i.iconfont {}
+footer .container .right i.iconfont {
+  font-size: 24px;
+}
 
 ul {
   list-style: none;
@@ -191,6 +211,8 @@ ul.list-inline li {
   float: left
 }
 
+header nav {}
+
 header nav ul li a {
   margin-left: 45px;
 }
@@ -206,7 +228,6 @@ header nav ul li:first a {
 .page {
   min-height: 400px;
 }
-
 .page-about h1 {
   font-size: 40px;
   color: #333

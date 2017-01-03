@@ -7,8 +7,9 @@ postModel = require('../model/blog'),
   timeago = require('timeago.js'),
   async = require('async'),
   validator = require('validator'),
-
-  router.use(require('./auth'))
+  markdown = require('markdown').markdown
+  
+router.use(require('./auth'))
 
 router.use((req, res, next) => {
   if (res.app.locals.settings.description) {
@@ -43,7 +44,7 @@ router.get('/', (req, res, next) => {
     queryTag: (done) => {
       if (!tag) {
         done(null, [])
-        return 
+        return
       }
       tagModel.find({
         is_del: false,
@@ -52,10 +53,11 @@ router.get('/', (req, res, next) => {
         done(null, tags)
       })
     },
-    posts: ['queryTag','tags', ({
-      queryTag,tags
+    posts: ['queryTag', 'tags', ({
+      queryTag,
+      tags
     }, done) => {
-      if(!queryTag.length) queryTag = tags
+      if (!queryTag.length) queryTag = tags
       postModel.find({
         is_del: false,
       }, null, {
@@ -65,10 +67,11 @@ router.get('/', (req, res, next) => {
         done(null, posts)
       })
     }],
-    pageTotal: ['queryTag','tags', ({
-      queryTag,tags
+    pageTotal: ['queryTag', 'tags', ({
+      queryTag,
+      tags
     }, done) => {
-      if(!queryTag.length) queryTag = tags
+      if (!queryTag.length) queryTag = tags
       postModel.find({
         is_del: false,
       }).where('tags').in(queryTag).count({}).exec((err, count) => {
@@ -168,6 +171,7 @@ router.get('/detail/:id', (req, res, next) => {
       })
     }
   }, (err, results) => {
+    results.detail.content = markdown.toHTML(results.detail.content)
     res.render('detail', {
       post: results.detail,
       next: results.next,

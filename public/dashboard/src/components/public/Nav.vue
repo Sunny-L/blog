@@ -2,7 +2,7 @@
     nav {
         width: 90px;
         background: #000;
-        padding-top: 100px;
+        /*padding-top: 100px;*/
     }
     
     nav .item {
@@ -21,9 +21,15 @@
     nav .item a.active {
         color: #0068d9
     }
+    nav .item#back-to-index {
+        margin-bottom: 100px;
+    }
 </style>
 <template>
     <nav>
+        <div class="item" id="back-to-index">
+            <a href="/">回到首页</a>
+        </div>
         <div class="item">
             <router-link to="/" exact>首页</router-link>
         </div>

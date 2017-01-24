@@ -28,7 +28,7 @@
 <template>
     <nav>
         <div class="item" id="back-to-index">
-            <a href="/">回到首页</a>
+            <a href="/" target="_blank">回到首页</a>
         </div>
         <div class="item">
             <router-link to="/" exact>首页</router-link>

@@ -7,7 +7,7 @@ postModel = require('../model/blog'),
   timeago = require('timeago.js'),
   async = require('async'),
   validator = require('validator'),
-  markdown = require('markdown').markdown
+  marked = require('marked')
   
 router.use(require('./auth'))
 
@@ -171,7 +171,7 @@ router.get('/detail/:id', (req, res, next) => {
       })
     }
   }, (err, results) => {
-    results.detail.content = markdown.toHTML(results.detail.content)
+    results.detail.content = marked(results.detail.content)
     res.render('detail', {
       post: results.detail,
       next: results.next,

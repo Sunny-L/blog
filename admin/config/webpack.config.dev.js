@@ -164,6 +164,7 @@ module.exports = {
                 loader: require.resolve('css-loader'),
                 options: {
                   importLoaders: 1,
+                  // modules: true
                 },
               },
               {
@@ -188,6 +189,16 @@ module.exports = {
               },
             ],
           },
+          {
+            test: /\.less$/,
+            use: [{
+              loader: "style-loader" // creates style nodes from JS strings
+            }, {
+              loader: "css-loader" // translates CSS into CommonJS
+            }, {
+              loader: "less-loader" // compiles Less to CSS
+            }]
+          },
           // "file" loader makes sure those assets get served by WebpackDevServer.
           // When you `import` an asset, you get its (virtual) filename.
           // In production, they would get copied to the `build` folder.
@@ -204,16 +215,7 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
-          {
-            test: /\.less$/,
-            use: [{
-              loader: "style-loader" // creates style nodes from JS strings
-            }, {
-              loader: "css-loader" // translates CSS into CommonJS
-            }, {
-              loader: "less-loader" // compiles Less to CSS
-            }]
-          }
+
         ],
       },
       // ** STOP ** Are you adding a new loader?

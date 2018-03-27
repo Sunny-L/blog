@@ -17,7 +17,7 @@ export const getRouteConfig = () =>{
   },{
     name: '标签',
     path: '/tags',
-    component: Index,
+    component: Tags,
   },{
     name: '系统',
     path: '/system',

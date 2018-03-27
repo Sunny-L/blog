@@ -1,5 +1,5 @@
 {
-  "name": "admin",
+  "name": "admin1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
+    "babel-plugin-import": "^1.6.7",
     "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
@@ -82,18 +83,14 @@
       "node"
     ]
   },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
   "devDependencies": {
-    "antd": "^3.3.1",
+    "antd": "^3.3.3",
+    "history": "^4.7.2",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
-    "react-router": "^4.2.0"
+    "react-router-dom": "^4.2.2"
   }
 }

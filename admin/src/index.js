@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './Layout';
-// import registerServiceWorker from './registerServiceWorker';
+import './app.less'
+import { HashRouter } from 'react-router-dom'
 
-import 'antd/dist/antd.less'
-
-ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+ReactDOM.render(<HashRouter><App /></HashRouter>, document.getElementById('root'));

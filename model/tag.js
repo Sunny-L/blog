@@ -1,7 +1,6 @@
 var mongoose = require('./db.js');
 var tagSchema = new mongoose.Schema({
   title: String,
-  value: String,
   is_del: {
     type: Boolean,
     default: false

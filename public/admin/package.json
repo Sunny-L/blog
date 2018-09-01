@@ -1,0 +1,26 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "antd": "^3.8.4",
+    "marked": "^0.5.0",
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.5",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "timeago.js": "^3.0.2",
+    "whatwg-fetch": "^2.0.4"
+  }
+}

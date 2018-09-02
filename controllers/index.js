@@ -11,14 +11,14 @@ postModel = require('../model/blog'),
   
 router.use(require('./auth'))
 
-router.use((req, res, next) => {
+/* router.use((req, res, next) => {
   if (res.app.locals.settings.description) {
     res.locals.path = req.path
     next()
   } else {
     return res.redirect('/admin/login')
   }
-})
+}) */
 
 router.get('/', (req, res, next) => {
   let page = req.query.page ? req.query.page : '1',

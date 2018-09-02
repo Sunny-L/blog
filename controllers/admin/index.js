@@ -9,7 +9,7 @@ var router = require('express').Router(),
   path = require('path')
 async = require('async')
 
-router.use((req, res, next) => {
+/* router.use((req, res, next) => {
   if (req.session.user) next()
   else {
     if (req.xhr) {
@@ -21,7 +21,7 @@ router.use((req, res, next) => {
       res.redirect('/admin/login')
     }
   }
-})
+}) */
 
 router.use((req, res, next) => {
   settingModel.find((err, settings) => {
@@ -40,9 +40,9 @@ router.use((req, res, next) => {
   })
 })
 
-router.get('/', (req, res, next) => {
+/* router.get('/', (req, res, next) => {
   res.sendFile(process.cwd() + '/public/dashboard/dist/index.html')
-})
+}) */
 router.use('/upload', require('../upload'))
 
 
@@ -71,7 +71,7 @@ router.get('/getCounts', (req, res, next) => {
       code: 0,
       counts: {
         posts: results.posts,
-        views: results.views,
+        pv: results.views.length,
         messages: 0
       }
     })
@@ -101,7 +101,7 @@ router.get('/posts', (req, res, next) => {
   })
 })
 
-router.get('/posts/detail/:id', (req, res, next) => {
+router.get('/posts/:id', (req, res, next) => {
   postModel.findById(req.params.id).populate('tags').exec((err, post) => {
       if (err) {
         logger.error(err)
@@ -266,7 +266,7 @@ router.get('/tags', (req, res, next) => {
   })
 })
 
-router.post('/tags/save', (req, res, next) => {
+router.post('/tags', (req, res, next) => {
   if (req.body._id) {
     tagModel.update({
       _id: req.body._id
@@ -310,9 +310,9 @@ router.post('/tags/save', (req, res, next) => {
   }
 })
 
-router.get('/tags/del', (req, res, next) => {
+router.delete('/tags/:id', (req, res, next) => {
   tagModel.remove({
-    _id: req.query._id
+    _id: req.params.id
   }, (err, tag) => {
     if (err) {
       logger.info(err)

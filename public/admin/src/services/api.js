@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import qs from 'qs';
 import request from '../utils/request';
 
 export function queryPosts(params) {
@@ -53,12 +53,9 @@ export function updateAvator(params) {
 export function queryTags(params) {
     return request(`/admin/tags`)
 }
-export function delTag(params) {
-    return request(`/admin/tags`, {
+export function delTag(id) {
+    return request(`/admin/tags/${id}`, {
         method: 'DELETE',
-        body: {
-            ...params
-        }
     })
 }
 export function saveTag(params) {
